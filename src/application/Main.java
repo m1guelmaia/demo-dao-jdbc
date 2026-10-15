@@ -4,7 +4,6 @@ import model.dao.DaoFactory;
 import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
-import model.impl.SellerDaoJDBC;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -32,6 +31,10 @@ public class Main {
             System.out.println(s);
         }
 
+        System.out.println("\n=== TEST 4: Seller insert ===");
+        Seller newSeller = new  Seller(0, "Marco", "marcokellisson@yahoo.com.br", LocalDate.of(1990, 6, 23), 7560.30, department);
+        sellerDao.insert(newSeller);
+        System.out.println("New ID generated: " + newSeller.getId());
 
 
 
