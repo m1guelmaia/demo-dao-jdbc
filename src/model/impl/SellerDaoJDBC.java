@@ -49,17 +49,9 @@ public class SellerDaoJDBC implements SellerDao {
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) {
-                Department department = new Department();
-                department.setId(resultSet.getInt("DepartmentId"));
-                department.setName(resultSet.getString("DepName"));
+                Department department = instantiateDepartment(resultSet);
 
-                Seller seller = new Seller();
-                seller.setId(resultSet.getInt("Id"));
-                seller.setName(resultSet.getString("Name"));
-                seller.setEmail(resultSet.getString("Email"));
-                seller.setBirthDate(resultSet.getDate("BirthDate").toLocalDate());
-                seller.setDepartment(department);
-                seller.setBaseSalary(resultSet.getDouble("BaseSalary"));
+                Seller seller = instantiateSeller(resultSet, department);
                 return seller;
             }
             return  null;
@@ -69,6 +61,24 @@ public class SellerDaoJDBC implements SellerDao {
             DB.closeResultSet(resultSet);
             DB.closeStatement(preparedStatement);
         }
+    }
+
+    private Seller instantiateSeller(ResultSet resultSet, Department department) throws SQLException {
+        Seller seller = new Seller();
+        seller.setId(resultSet.getInt("Id"));
+        seller.setName(resultSet.getString("Name"));
+        seller.setEmail(resultSet.getString("Email"));
+        seller.setBirthDate(resultSet.getDate("BirthDate").toLocalDate());
+        seller.setDepartment(department);
+        seller.setBaseSalary(resultSet.getDouble("BaseSalary"));
+        return seller;
+    }
+
+    private Department instantiateDepartment(ResultSet resultSet) throws SQLException {
+        Department department = new Department();
+        department.setId(resultSet.getInt("DepartmentId"));
+        department.setName(resultSet.getString("DepName"));
+        return department;
     }
 
     @Override
