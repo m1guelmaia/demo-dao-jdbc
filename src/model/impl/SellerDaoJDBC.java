@@ -90,7 +90,10 @@ public class SellerDaoJDBC implements SellerDao {
 
             preparedStatement.setInt(1, id);
 
-            preparedStatement.executeUpdate();
+            int rows = preparedStatement.executeUpdate();
+            if (rows == 0) {
+                throw new DbException("No rows were deleted.");
+            }
 
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
@@ -207,7 +210,7 @@ public class SellerDaoJDBC implements SellerDao {
                     map.put(resultSet.getInt("DepartmentId"), dep);
                 }
 
-                Seller seller = instantiateSeller(resultSet, department);
+                Seller seller = instantiateSeller(resultSet, dep);
                 list.add(seller);
             }
             return list;
