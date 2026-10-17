@@ -94,7 +94,6 @@ public class SellerDaoJDBC implements SellerDao {
             if (rows == 0) {
                 throw new DbException("No rows were deleted.");
             }
-
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         } finally {
