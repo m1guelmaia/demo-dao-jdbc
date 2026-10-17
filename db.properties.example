@@ -1,0 +1,3 @@
+user=YOUR_USER
+password=YOUR_PASSWORD
+dburl=jdbc:mysql://localhost:3306/demo_dao_jdbc

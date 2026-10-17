@@ -72,7 +72,7 @@ If you already have these tables, you can use them. Add some departments and sel
 
 ### 2. Set the connection
 
-Edit `db.properties` in the main project folder:
+Copy `db.properties.example` to `db.properties` in the main project folder. Then edit the new file:
 
 ```properties
 user=YOUR_USER
@@ -81,6 +81,8 @@ dburl=jdbc:mysql://localhost:3306/demo_dao_jdbc
 ```
 
 Use your MySQL user and password. If your database has a different name, change the URL.
+
+Git ignores `db.properties` to keep your local login details out of commits.
 
 Run the app from the main project folder. The app reads `db.properties` from this folder.
 
