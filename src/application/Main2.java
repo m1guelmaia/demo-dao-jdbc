@@ -5,10 +5,13 @@ import model.dao.DepartmentDao;
 import model.entities.Department;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Main2 {
 
     public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
 
         DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
 
@@ -34,6 +37,12 @@ public class Main2 {
         departmentDao.update(updatedDepartment);
         System.out.println("Update completed.");
 
+        System.out.println("\n=== TEST 5: Department delete ===");
+        System.out.print("Enter ID to delete: ");
+        int id = sc.nextInt();
+        departmentDao.deleteById(id);
+        System.out.println("Delete completed.");
+
+        sc.close();
     }
 }
-
