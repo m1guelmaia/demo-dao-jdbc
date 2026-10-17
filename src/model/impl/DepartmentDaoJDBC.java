@@ -23,14 +23,14 @@ public class DepartmentDaoJDBC implements DepartmentDao {
         try {
             preparedStatement = connection.prepareStatement(
                     "INSERT INTO department "
-                    + "(Name) "
-                    + "VALUES "
-                    + "(?) ",
+                            + "(Name) "
+                            + "VALUES "
+                            + "(?) ",
                     Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setString(1, obj.getName());
 
-            int  affectedRows = preparedStatement.executeUpdate();
+            int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows > 0) {
                 resultSet = preparedStatement.getGeneratedKeys();
                 if (resultSet.next()) {
@@ -71,7 +71,21 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
     @Override
     public void deleteById(Integer id) {
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("DELETE FROM department WHERE Id = ?");
 
+            preparedStatement.setInt(1, id);
+
+            int rows = preparedStatement.executeUpdate();
+            if (rows == 0) {
+                throw new DbException("No rows were deleted.");
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(preparedStatement);
+        }
     }
 
     @Override
