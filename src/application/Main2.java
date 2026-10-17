@@ -15,9 +15,16 @@ public class Main2 {
         System.out.println(department);
 
 
-        System.out.println("=== TEST 2 - Department insert ===");
-        Department newDepartment = new Department(0, "Books");
+        System.out.println("\n=== TEST 2 - Department insert ===");
+        Department newDepartment = new Department(0, "Economy");
         departmentDao.insert(newDepartment);
         System.out.println("New ID generated: " + newDepartment.getId());
+
+        System.out.println("\n=== TEST 3 - Department update ===");
+        Department updatedDepartment = departmentDao.findById(6);
+        updatedDepartment.setName("Games");
+        departmentDao.update(updatedDepartment);
+        System.out.println("Update completed.");
+
     }
 }
